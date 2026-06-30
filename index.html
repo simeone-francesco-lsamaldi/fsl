@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francesco Simeone 5^CSA — PCTO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #0f0e0c;
+    --cream:  #f5f0e8;
+    --warm:   #f0e8d5;
+    --gold:   #c8953a;
+    --rust:   #b84c2b;
+    --sage:   #4a6741;
+    --steel:  #3a4f6b;
+    --light:  #fdfaf4;
+    --mid:    #7a7060;
+    --line:   rgba(15,14,12,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  #hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,149,58,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(58,79,107,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 85% 20%, rgba(184,76,43,0.20) 0%, transparent 55%),
+      url('hero.jpg') center/cover no-repeat,
+      #0f0e0c;
+    animation: heroShift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroShift {
+    0%   { filter: brightness(1); }
+    100% { filter: brightness(1.15); }
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .hero-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,149,58,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,149,58,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 24px;
+    animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-school {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: clamp(11px, 1.3vw, 14px);
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 8vw, 96px);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-class {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 300;
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.1em;
+    margin-top: 18px;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 26px);
+    color: rgba(245,240,232,0.7);
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .hero-year {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 10px 28px;
+    border: 1px solid rgba(200,149,58,0.4);
+    border-radius: 2px;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 1.4s ease forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(200,149,58,0.7), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.4; transform: scaleY(1); }
+    50%      { opacity: 1;   transform: scaleY(1.15); }
+  }
+
+  /* ── NAV ──────────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,14,12,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(200,149,58,0.15);
+    padding: 0 clamp(20px, 5vw, 80px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── LAYOUT HELPERS ───────────────────────────────── */
+  section {
+    padding: clamp(64px, 9vw, 120px) clamp(20px, 6vw, 100px);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 48px;
+  }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 20px 0 40px;
+  }
+
+  /* ── INTRO SECTION ────────────────────────────────── */
+  #chi-sono {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: center;
+  }
+
+  .intro-text p {
+    font-size: clamp(15px, 1.5vw, 17px);
+    line-height: 1.85;
+    color: #3a3830;
+    margin-bottom: 18px;
+    font-weight: 300;
+  }
+
+  /* ── INTRO VISUAL — foto reali ── */
+  .intro-visual {
+    position: relative;
+    height: 460px;
+  }
+
+  .intro-img-big {
+    position: absolute;
+    top: 0; right: 0;
+    width: 75%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    /* linea dorata sottile come cornice */
+    outline: 1px solid rgba(200,149,58,0.25);
+    outline-offset: -1px;
+  }
+
+  .intro-img-small {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 48%;
+    height: 45%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    outline: 1px solid rgba(200,149,58,0.25);
+    outline-offset: -1px;
+    /* leggero bordo bianco per staccarsi dall'immagine grande */
+    border: 3px solid var(--cream);
+  }
+
+  /* ── ACTIVITIES ───────────────────────────────────── */
+  #attivita {
+    background: var(--light);
+  }
+
+  .area-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .area-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .area-tag.filosofia { background: rgba(74,103,65,0.12); color: var(--sage); }
+  .area-tag.digitale  { background: rgba(58,79,107,0.12); color: var(--steel); }
+  .area-tag.sicurezza { background: rgba(184,76,43,0.12); color: var(--rust); }
+
+  .area-line { flex: 1; height: 1px; background: var(--line); }
+
+  /* Activity Card */
+  .activity-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 48px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
+  }
+
+  .activity-card:hover {
+    box-shadow: 0 8px 48px rgba(0,0,0,0.13);
+  }
+
+  .activity-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .activity-card.reverse { direction: rtl; }
+  .activity-card.reverse > * { direction: ltr; }
+
+  .card-img {
+    position: relative;
+    min-height: 340px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-img.cilento {
+    background: linear-gradient(160deg, #2d4a1e 0%, #4a6741 40%, #6b8a5e 100%);
+  }
+  .card-img.grecia {
+    background: linear-gradient(160deg, #1a3050 0%, #3a6090 40%, #5a90c0 100%);
+  }
+  .card-img.arcade {
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+  .card-img.ai-apps {
+    background: linear-gradient(160deg, #0d1b2a 0%, #1b3a5c 50%, #2d6a9f 100%);
+  }
+  .card-img.data {
+    background: linear-gradient(160deg, #1c2b1c 0%, #2d4a2d 50%, #4a7a4a 100%);
+  }
+  .card-img.sicurezza {
+    background: linear-gradient(160deg, #2a1515 0%, #5a2020 50%, #8a3030 100%);
+  }
+
+  .card-img img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .card-img-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.35) 100%);
+    z-index: 1;
+  }
+
+  .card-img-icon {
+    position: relative;
+    z-index: 2;
+    font-size: 72px;
+    opacity: 0.3;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
+  }
+
+  .card-img-meta {
+    position: absolute;
+    top: 24px; left: 24px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .meta-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .meta-badge.gold {
+    background: rgba(200,149,58,0.3);
+    border-color: rgba(200,149,58,0.4);
+    color: #f0d090;
+  }
+
+  .card-img-hours {
+    position: absolute;
+    bottom: 24px; right: 24px;
+    z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.15);
+    line-height: 1;
+  }
+
+  .card-img-hours span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: clamp(24px, 3vw, 48px);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(15,14,12,0.04);
+    line-height: 1;
+    margin-bottom: -20px;
+    margin-left: -4px;
+  }
+
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2vw, 26px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .card-period {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-period::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .card-body p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #5a5550;
+    margin-bottom: 16px;
+    font-weight: 300;
+  }
+
+  .card-body p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .competenze-list {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  .competenze-list h4 {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .comp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .comp-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    font-size: 11px;
+    color: var(--mid);
+    background: var(--warm);
+  }
+
+  .note-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .note-item {
+    padding: 12px 14px;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .note-item.pro {
+    background: rgba(74,103,65,0.07);
+    border-left: 2px solid var(--sage);
+    color: #3a4a35;
+  }
+
+  .note-item.con {
+    background: rgba(184,76,43,0.07);
+    border-left: 2px solid var(--rust);
+    color: #5a3020;
+  }
+
+  .note-item strong {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  /* ── TABLE ────────────────────────────────────────── */
+  #quadro {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  #quadro .section-label { color: var(--gold); }
+  #quadro .section-title { color: var(--cream); }
+
+  .pcto-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+
+  .pcto-table thead th {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: left;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(200,149,58,0.25);
+    font-weight: 500;
+  }
+
+  .pcto-table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s;
+  }
+
+  .pcto-table tbody tr:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .pcto-table td {
+    padding: 16px 20px;
+    font-size: 13px;
+    color: rgba(245,240,232,0.75);
+    vertical-align: middle;
+  }
+
+  .pcto-table td:first-child {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(245,240,232,0.45);
+    font-size: 14px;
+  }
+
+  .pcto-table td:nth-child(4) {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+  }
+
+  .pcto-table tfoot td {
+    padding: 20px;
+    font-weight: 600;
+    color: var(--cream);
+    border-top: 1px solid rgba(200,149,58,0.4);
+    font-size: 14px;
+  }
+
+  .pcto-table tfoot td:last-child {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+  }
+
+  .type-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .type-pill.f { background: rgba(74,103,65,0.25); color: #8ab87a; }
+  .type-pill.d { background: rgba(58,79,107,0.35); color: #7aa0c8; }
+  .type-pill.s { background: rgba(184,76,43,0.25); color: #d07060; }
+
+  /* ── EXTRACURRICULAR ──────────────────────────────── */
+  #extra {
+    background: var(--warm);
+  }
+
+  .extra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .extra-card {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+  }
+
+  .extra-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  .extra-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .extra-card-top {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .extra-card-top.mep {
+    background:
+      linear-gradient(135deg, rgba(26,45,69,0.75) 0%, rgba(45,79,122,0.65) 100%),
+      url('mep.jpg') center/cover no-repeat,
+      linear-gradient(135deg, #1a2d45 0%, #2d4f7a 100%);
+  }
+  .extra-card-top.cinema {
+    background:
+      linear-gradient(135deg, rgba(42,26,10,0.75) 0%, rgba(90,58,26,0.65) 100%),
+      url('cinema.jpg') center/cover no-repeat,
+      linear-gradient(135deg, #2a1a0a 0%, #5a3a1a 100%);
+  }
+  .extra-card-top.openday {
+    background:
+      linear-gradient(135deg, rgba(26,53,32,0.75) 0%, rgba(58,96,64,0.65) 100%),
+      url('openday.jpg') center/cover no-repeat,
+      linear-gradient(135deg, #1a3520 0%, #3a6040 100%);
+  }
+  .extra-card-top.praga {
+    background:
+      linear-gradient(135deg, rgba(26,26,53,0.75) 0%, rgba(58,58,112,0.65) 100%),
+      url('praga.jpg') center/cover no-repeat,
+      linear-gradient(135deg, #1a1a35 0%, #3a3a70 100%);
+  }
+
+  .extra-icon {
+    font-size: 60px;
+    opacity: 0.22;
+    position: relative;
+    z-index: 2;
+  }
+
+  .extra-card-top .meta-badge {
+    position: absolute;
+    top: 16px; left: 16px;
+  }
+
+  .extra-body {
+    padding: 24px;
+  }
+
+  .extra-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .extra-body p {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #5a5550;
+    font-weight: 300;
+  }
+
+  .extra-body .comp-tags {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ── FINAL SECTION ────────────────────────────────── */
+  #conclusioni {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: clamp(40px, 6vw, 100px);
+    align-items: start;
+  }
+
+  .concl-side {
+    position: sticky;
+    top: 80px;
+  }
+
+  .concl-side .section-title { font-size: clamp(28px, 4vw, 44px); }
+
+  .concl-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .concl-stat {
+    padding: 20px;
+    background: white;
+    border-radius: 4px;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .concl-stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .concl-stat span {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--mid);
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .concl-text p {
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.9;
+    color: #3a3830;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .quote-block {
+    margin: 32px 0;
+    padding: 28px 32px;
+    background: var(--ink);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -24px; left: 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .quote-block p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 1.8vw, 22px);
+    color: var(--cream) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.4);
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(200,149,58,0.1);
+  }
+
+  footer strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 900px) {
+    #chi-sono {
+      grid-template-columns: 1fr;
+    }
+    .intro-visual { display: none; }
+
+    .activity-card {
+      grid-template-columns: 1fr;
+    }
+    .activity-card.reverse { direction: ltr; }
+    .card-img { min-height: 220px; }
+
+    #conclusioni {
+      grid-template-columns: 1fr;
+    }
+    .concl-side { position: static; }
+
+    .note-box { grid-template-columns: 1fr; }
+
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .pcto-table thead { display: none; }
+    .pcto-table, .pcto-table tbody, .pcto-table tr, .pcto-table td {
+      display: block;
+      width: 100%;
+    }
+    .pcto-table tr {
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 12px;
+    }
+    .pcto-table td { padding: 6px 0; border: none; }
+    .pcto-table td:first-child { font-size: 11px; }
+    .pcto-table td:nth-child(4) { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div id="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-school">Liceo Scientifico Statale "E. Amaldi" · Bitetto (BA)</p>
+    <h1 class="hero-title">Francesco<br><em>Simeone</em></h1>
+    <p class="hero-class">Classe 5^CSA</p>
+    <p class="hero-subtitle">Attività PCTO e non</p>
+    <span class="hero-year">Triennio 2023 – 2026</span>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scorri</span>
+  </div>
+</section>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a href="#hero" class="nav-brand">Francesco Simeone 5^CSA</a>
+  <ul class="nav-links">
+    <li><a href="#chi-sono">Profilo</a></li>
+    <li><a href="#attivita">Attività</a></li>
+    <li><a href="#quadro">Riepilogo</a></li>
+    <li><a href="#extra">Extracurriculari</a></li>
+    <li><a href="#conclusioni">Conclusioni</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ CHI SONO ══════════════ -->
+<section id="chi-sono">
+  <div class="intro-text">
+    <p class="section-label">01 — Profilo</p>
+    <h2 class="section-title">Chi sono io</h2>
+    <div class="divider"></div>
+    <p>Sono uno studente dell'ultimo anno del Liceo Scientifico "E. Amaldi" di Bitetto. O almeno lo sono ancora per poche ore, fino a quando non varcherò per l'ultima volta la stessa porta che mi accolse quando ero poco più di un bambino.</p>
+    <p>Se qualcuno mi avesse chiesto chi fossi il primo giorno di liceo, probabilmente avrei saputo rispondere soltanto con un nome, una classe e qualche interesse. Oggi, arrivato al termine di questo percorso, la risposta è molto più complessa.
+
+Cinque anni possono sembrare pochi sulla carta, ma vissuti giorno dopo giorno assumono un peso diverso. Sono stati anni di interrogazioni, viaggi, progetti, risate, difficoltà e momenti che allora sembravano ordinari, ma che oggi guardo con occhi completamente diversi.
+
+In questo tempo non sono cambiato soltanto io: siamo cambiati tutti. Quella che all'inizio era semplicemente una classe di ragazzi molto diversi tra loro è diventata un gruppo di persone che ha condiviso una parte importante della propria crescita. Ci siamo visti maturare quasi senza accorgercene, un giorno alla volta.</p>
+    <p>Le esperienze raccontate in questo sito rappresentano alcune delle tappe più significative del mio percorso. Tuttavia, il loro valore non risiede soltanto nelle competenze acquisite, ma anche nei ricordi che custodiscono: le persone incontrate, le conversazioni durante i viaggi, le sfide affrontate insieme e la sensazione di stare costruendo qualcosa senza sapere ancora dove ci avrebbe portati.
+
+Questo sito racconta il mio percorso scolastico, ma tra le sue righe racconta anche qualcosa di più: la storia di un ragazzo che entra al liceo con molte domande e ne esce con maggiore consapevolezza, nuove ambizioni e una classe che, senza accorgersene, è diventata uno dei ricordi più importanti della sua adolescenza.</p>
+  </div>
+
+  <!-- ✦ VISUAL: due foto reali sovrapposte ✦ -->
+  <div class="intro-visual">
+    <img
+      src="profilo-grande.jpg"
+      alt="Foto principale"
+      class="intro-img-big"
+    >
+    <img
+      src="profilo-piccola.jpg"
+      alt="Foto secondaria"
+      class="intro-img-small"
+    >
+  </div>
+</section>
+
+<!-- ══════════════ ATTIVITÀ ══════════════ -->
+<section id="attivita">
+  <p class="section-label">02 — PCTO</p>
+  <h2 class="section-title">Attività del Percorso</h2>
+
+  <!-- AREA FILOSOFICA -->
+  <div class="area-header">
+    <span class="area-tag filosofia">🌿 Area Umanistica e Filosofica</span>
+    <div class="area-line"></div>
+  </div>
+
+  <!-- Card 1: Cilento -->
+  <div class="activity-card" data-anim>
+    <div class="card-img cilento">
+      <img src="cilento.jpg" alt="Festival della Filosofia in Cilento">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2023/2024</span>
+        <span class="meta-badge">In Presenza · Cilento</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">30<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">01</div>
+      <h3>Festival della Filosofia in Cilento</h3>
+      <div class="card-period">15 aprile – 19 aprile 2024</div>
+      <p><strong>Associazione Festival della Filosofia in Magna Grecia</strong> — evento culturale e formativo di rilevanza nazionale rivolto agli studenti delle scuole superiori. Si propone di far rivivere l'antica vocazione filosofica del territorio della Magna Grecia attraverso laboratori, passeggiate filosofiche, dialoghi e performance artistiche.</p>
+      <p>L'esperienza, svoltasi in presenza nel Cilento, ha previsto la partecipazione a lezioni magistrali tenute da docenti universitari, dibattiti collettivi e laboratori pratici (teatro, espressione corporea, scrittura, fotografia). Il nucleo centrale è stato l'attualizzazione del pensiero filosofico antico per rispondere alle sfide della contemporaneità.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Altissimo valore culturale; immersione totale in un ambiente stimolante; interazione proficua con coetanei provenienti da tutta Italia.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>Ritmi quotidiani estremamente serrati che hanno richiesto un notevole dispendio di energie fisiche e mentali.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">Pensiero critico</span>
+          <span class="comp-tag">Argomentazione</span>
+          <span class="comp-tag">Capacità di astrazione</span>
+          <span class="comp-tag">Lavoro di squadra</span>
+          <span class="comp-tag">Public speaking</span>
+          <span class="comp-tag">Competenze relazionali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: Grecia -->
+  <div class="activity-card reverse" data-anim>
+    <div class="card-img grecia">
+      <img src="grecia.jpg" alt="Festival della Filosofia in Grecia">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2024/2025</span>
+        <span class="meta-badge">In Presenza · Estero</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">40<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">02</div>
+      <h3>Festival della Filosofia in Grecia</h3>
+      <div class="card-period">16 marzo – 21 marzo 2025</div>
+      <p><strong>Variante internazionale del progetto precedente</strong>, l'evento si svolge direttamente nei luoghi natali del pensiero occidentale (Atene, Delfi, Epidauro), unendo l'approfondimento filosofico al viaggio di studio archeologico e interculturale.</p>
+      <p>L'esperienza ha rappresentato l'evoluzione naturale del percorso filosofico dell'anno precedente. Muovendosi tra i siti archeologici della Grecia, l'attività ha coniugato la divulgazione filosofico-storica con laboratori espressivi sul concetto di cittadinanza, democrazia e identità europea. La dimensione internazionale ha amplificato l'impatto formativo delle attività laboratoriali.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Contesto storico-geografico di inestimabile valore; perfetta integrazione tra teoria filosofica e osservazione sul campo; forte coesione di gruppo.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>Gestione complessa dei tempi di spostamento tra le diverse località greche, che ha parzialmente ridotto i tempi dedicati ai singoli laboratori.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">Radici filosofiche occidentali</span>
+          <span class="comp-tag">Competenze interculturali</span>
+          <span class="comp-tag">Problem solving logistico</span>
+          <span class="comp-tag">Dibattito strutturato</span>
+          <span class="comp-tag">Identità europea</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AREA DIGITALE -->
+  <div class="area-header" style="margin-top: 64px;">
+    <span class="area-tag digitale">💻 Area Informatica e Digitale — Boolean</span>
+    <div class="area-line"></div>
+  </div>
+
+  <!-- Card 3: Arcade -->
+  <div class="activity-card" data-anim>
+    <div class="card-img arcade">
+      <img src="arcade.jpg" alt="Boolean Coding Week Arcade">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2023/2024</span>
+        <span class="meta-badge">Online</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">8<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">03</div>
+      <h3>Boolean – Coding Week: Arcade Collection</h3>
+      <div class="card-period">16 ottobre – 20 ottobre 2023 · HTML · CSS · JavaScript</div>
+      <p><strong>Boolean SRL</strong> è una delle principali tech-academy italiane specializzate nella formazione a distanza nel campo dello sviluppo software. Il corso ha introdotto le basi dello sviluppo web front-end attraverso lezioni sincrone ed esercitazioni pratiche guidate.</p>
+      <p>L'obiettivo era la progettazione e la scrittura del codice per creare una suite di mini-giochi in stile "arcade", partendo dalla struttura della pagina fino alla logica di interazione software. Approccio estremamente pratico e orientato alla creazione immediata di un prodotto funzionante.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Approccio pratico orientato alla creazione immediata di un prodotto funzionante; piattaforma didattica fluida e stimolante.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>Il monte ore limitato (8h) ha costretto a contrarre la spiegazione di concetti complessi legati a JavaScript.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">HTML5</span>
+          <span class="comp-tag">CSS3</span>
+          <span class="comp-tag">JavaScript</span>
+          <span class="comp-tag">Architettura web</span>
+          <span class="comp-tag">DOM manipulation</span>
+          <span class="comp-tag">Logica procedurale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4: AI Apps -->
+  <div class="activity-card reverse" data-anim>
+    <div class="card-img ai-apps">
+      <img src="ai-apps.jpg" alt="Boolean Web Development AI Apps">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2024/2025</span>
+        <span class="meta-badge">Online · AI</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">8<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">04</div>
+      <h3>Boolean – Web Development: AI Apps</h3>
+      <div class="card-period">30 settembre 2024 · Web Development · Intelligenza Artificiale</div>
+      <p><strong>Boolean SRL</strong> — modulo focalizzato sull'integrazione di funzionalità di Intelligenza Artificiale all'interno di applicazioni web. Durante il corso sono state analizzate le modalità di connessione ad API esterne di modelli linguistici per creare interfacce web intelligenti e interattive.</p>
+      <p>La tematica di fortissima attualità ha avuto elevato valore orientativo, stimolando l'innovazione tecnologica personale. Il corso ha sensibilizzato sulle potenzialità e sull'etica dell'IA, rendendo necessaria un'ampia attività di studio e sperimentazione individuale successiva.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Tematica di fortissima attualità ed elevato valore orientativo; stimolo all'innovazione tecnologica personale.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>La brevità del corso ha permesso solo un'introduzione guidata, rendendo necessaria un'ampia attività di studio individuale successiva.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">API Integration</span>
+          <span class="comp-tag">LLM</span>
+          <span class="comp-tag">Intelligenza Artificiale</span>
+          <span class="comp-tag">Front-end + AI</span>
+          <span class="comp-tag">Etica digitale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 5: Data Week -->
+  <div class="activity-card" data-anim>
+    <div class="card-img data">
+      <img src="data.jpg" alt="Boolean Data Week">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2024/2025</span>
+        <span class="meta-badge">Online · Data</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">8<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">05</div>
+      <h3>Boolean – Data Week</h3>
+      <div class="card-period">20 novembre – 24 novembre 2023 · Python · Tableau</div>
+      <p><strong>Boolean SRL</strong> — introduzione alla scienza dei dati e alla data analytics. Il corso ha guidato gli studenti nell'importazione, pulizia e manipolazione di dataset statistici mediante il linguaggio Python, per poi passare alla visualizzazione grafica dei dati tramite il software di Business Intelligence Tableau.</p>
+      <p>Utilizzo di strumenti software standard del mercato professionale, sviluppo del pensiero analitico e quantitativo, abilità nel creare dashboard interattive e grafici esplicativi per la data visualization.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Utilizzo di strumenti software standard del mercato professionale; sviluppo del pensiero analitico e quantitativo.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>La curva di apprendimento del linguaggio Python risulta ripida per chi si approccia ad essa in un lasso di tempo così ristretto.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">Python</span>
+          <span class="comp-tag">Tableau</span>
+          <span class="comp-tag">Data Analysis</span>
+          <span class="comp-tag">Data Visualization</span>
+          <span class="comp-tag">Database</span>
+          <span class="comp-tag">Statistica</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AREA SICUREZZA -->
+  <div class="area-header" style="margin-top: 64px;">
+    <span class="area-tag sicurezza">🛡 Area Sicurezza e Tutela</span>
+    <div class="area-line"></div>
+  </div>
+
+  <!-- Card 6: Sicurezza -->
+  <div class="activity-card reverse" data-anim>
+    <div class="card-img sicurezza">
+      <img src="sicurezza.jpg" alt="Corso Sicurezza INAIL">
+      <div class="card-img-overlay"></div>
+      <div class="card-img-meta">
+        <span class="meta-badge gold">A.S. 2023/2024</span>
+        <span class="meta-badge">Online · INAIL</span>
+      </div>
+      <div class="card-img-icon"></div>
+      <div class="card-img-hours">4<span>ore</span></div>
+    </div>
+    <div class="card-body">
+      <div class="card-number">06</div>
+      <h3>Corso sulla Sicurezza nei Luoghi di Lavoro</h3>
+      <div class="card-period">A.S. 2023/2024 · Ente Erogatore: INAIL</div>
+      <p><strong>Modulo obbligatorio ai sensi del D.Lgs. 81/08.</strong> Il percorso ha affrontato i concetti di rischio, danno, prevenzione e protezione, l'organizzazione della sicurezza aziendale, i diritti e i doveri dei lavoratori, nonché i segnali di pericolo e le procedure di emergenza.</p>
+      <p>Il percorso ha portato all'acquisizione della certificazione ufficiale propedeutica a qualsiasi attività lavorativa futura, con sviluppo della consapevolezza dei diritti e doveri in tema di tutela della salute e della capacità di identificare i fattori di rischio aziendali ed ambientali.</p>
+      <div class="note-box">
+        <div class="note-item pro"><strong>✦ Punti di forza</strong>Utilità trasversale e validità legale del titolo acquisito.</div>
+        <div class="note-item con"><strong>⚠ Criticità</strong>Modalità asincrona e prettamente teorica che tende a ridurre il livello di interattività dello studente.</div>
+      </div>
+      <div class="competenze-list">
+        <h4>Competenze Acquisite</h4>
+        <div class="comp-tags">
+          <span class="comp-tag">Sicurezza sul lavoro</span>
+          <span class="comp-tag">D.Lgs. 81/08</span>
+          <span class="comp-tag">Gestione rischi</span>
+          <span class="comp-tag">Procedure di emergenza</span>
+          <span class="comp-tag">Certificazione INAIL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ QUADRO SINOTTICO ══════════════ -->
+<section id="quadro">
+  <p class="section-label">03 — Riepilogo</p>
+  <h2 class="section-title">Quadro Sinottico delle Attività PCTO</h2>
+  <table class="pcto-table">
+    <thead>
+      <tr>
+        <th>Anno Scolastico</th>
+        <th>Denominazione Attività / Ente</th>
+        <th>Tipologia / Ambito</th>
+        <th>Ore</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2023/2024</td>
+        <td>Festival della Filosofia in Cilento — Ass. FFMG</td>
+        <td><span class="type-pill f">Umanistico · In presenza</span></td>
+        <td>30</td>
+      </tr>
+      <tr>
+        <td>2023/2024</td>
+        <td>Boolean SRL – Coding Week: Arcade Collection</td>
+        <td><span class="type-pill d">Digitale · Online</span></td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>2023/2024</td>
+        <td>Corso sulla Sicurezza nei Luoghi di Lavoro — INAIL</td>
+        <td><span class="type-pill s">Normativo · Online</span></td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>2024/2025</td>
+        <td>Festival della Filosofia in Grecia — Ass. FFMG</td>
+        <td><span class="type-pill f">Umanistico · Internazionale</span></td>
+        <td>40</td>
+      </tr>
+      <tr>
+        <td>2024/2025</td>
+        <td>Boolean SRL – Web Development: AI Apps</td>
+        <td><span class="type-pill d">Digitale · AI</span></td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>2024/2025</td>
+        <td>Boolean SRL – Data Week</td>
+        <td><span class="type-pill d">Digitale · Data Analysis</span></td>
+        <td>8</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.5);">Monte Ore Validato PCTO</td>
+        <td>98</td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
+
+<!-- ══════════════ EXTRACURRICULARI ══════════════ -->
+<section id="extra">
+  <p class="section-label">04 — Oltre il PCTO</p>
+  <h2 class="section-title">Ampliamento del Profilo Formativo</h2>
+  <p style="font-size: 15px; color: #5a5550; font-weight: 300; margin-bottom: 48px; max-width: 680px; line-height: 1.8;">Attività extracurriculari non PCTO che hanno ricoperto un ruolo fondamentale nell'arricchimento del bagaglio di competenze trasversali, culturali e sociali.</p>
+
+  <div class="extra-grid">
+
+    <div class="extra-card" data-anim>
+      <div class="extra-card-top mep">
+        <img src="mep.jpg" alt="Progetto MEP" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <span class="meta-badge" style="position: absolute; top: 16px; left: 16px; z-index:2;">A.S. 2023/2024 · 14 ore</span>
+        <div class="extra-icon" style="position:relative;z-index:2;"></div>
+      </div>
+      <div class="extra-body">
+        <h3>Progetto MEP</h3>
+        <p style="font-size: 11px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px;">Model European Parliament</p>
+        <p>Simulazione dei lavori del Parlamento Europeo svoltasi a Febbraio 2024 in presenza nel Liceo. In qualità di "delegato", ho collaborato all'interno di una commissione consiliare per redigere una proposta di risoluzione su tematiche geopolitiche ed economiche europee, difendendola successivamente in sede di Assemblea Plenaria tramite dibattiti regolamentati.</p>
+        <div class="comp-tags">
+          <span class="comp-tag">Public speaking</span>
+          <span class="comp-tag">Negoziazione</span>
+          <span class="comp-tag">Debate</span>
+          <span class="comp-tag">Ed. Civica</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-card" data-anim>
+      <div class="extra-card-top cinema">
+        <img src="cinema.jpg" alt="Progetto CinemAmaldi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <span class="meta-badge" style="position: absolute; top: 16px; left: 16px; z-index:2;">A.S. 2024/25 e 25/26 · 60 ore</span>
+        <div class="extra-icon" style="position:relative;z-index:2;"></div>
+      </div>
+      <div class="extra-body">
+        <h3>Progetto Cinema "CinemAmaldi"</h3>
+        <p style="font-size: 11px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px;">PN e POC · Biennale</p>
+        <p>Percorso biennale strutturato in due macro-moduli annui da 30 ore ciascuno. Nel primo modulo ho appreso le tecniche di sceneggiatura, scrittura creativa e ideazione del soggetto; nel secondo modulo abbiamo affrontato la produzione pratica sul campo: regia, fotografia, gestione audio e riprese.</p>
+        <div class="comp-tags">
+          <span class="comp-tag">Sceneggiatura</span>
+          <span class="comp-tag">Regia</span>
+          <span class="comp-tag">Project management</span>
+          <span class="comp-tag">Comunicazione visiva</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-card" data-anim>
+      <div class="extra-card-top openday">
+        <img src="openday.jpg" alt="Open Day Liceo Amaldi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <span class="meta-badge" style="position: absolute; top: 16px; left: 16px; z-index:2;">A.S. 2024/25 e 25/26</span>
+        <div class="extra-icon" style="position:relative;z-index:2;"></div>
+      </div>
+      <div class="extra-body">
+        <h3>Open Day del Liceo "E. Amaldi"</h3>
+        <p style="font-size: 11px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px;">Studente Orientatore</p>
+        <p>Partecipazione in qualità di studente orientatore durante le giornate di apertura al pubblico del Liceo. Il compito prevedeva l'accoglienza delle famiglie e degli studenti delle scuole medie inferiori, la guida all'interno dei laboratori d'istituto e la presentazione dell'offerta formativa.</p>
+        <div class="comp-tags">
+          <span class="comp-tag">Intelligenza emotiva</span>
+          <span class="comp-tag">Empatia</span>
+          <span class="comp-tag">Comunicazione persuasiva</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra-card" data-anim>
+      <div class="extra-card-top praga">
+        <img src="praga.jpg" alt="Viaggio di Istruzione a Praga" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <span class="meta-badge" style="position: absolute; top: 16px; left: 16px; z-index:2;">A.S. 2025/2026</span>
+        <div class="extra-icon" style="position:relative;z-index:2;"></div>
+      </div>
+      <div class="extra-body">
+        <h3>Viaggio di Istruzione a Praga</h3>
+        <p style="font-size: 11px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px;">Mobilità Scolastica Culturale</p>
+        <p>Esperienza di mobilità scolastica culturale all'estero nella città di Praga. Oltre all'indubbio valore storico-artistico derivante dalle visite guidate all'interno del patrimonio architettonico mitteleuropeo, il viaggio ha rappresentato un'importante palestra di autonomia personale e adattamento a contesti internazionali.</p>
+        <div class="comp-tags">
+          <span class="comp-tag">Autonomia</span>
+          <span class="comp-tag">Interculturalità</span>
+          <span class="comp-tag">Competenze linguistiche</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ CONCLUSIONI ══════════════ -->
+<section id="conclusioni">
+  <div class="concl-side">
+    <p class="section-label">05 — Autoriflessione</p>
+    <h2 class="section-title">Considerazioni Finali e Autovalutazione</h2>
+    <div class="divider"></div>
+    <div class="concl-stat-grid">
+      <div class="concl-stat">
+        <strong>98</strong>
+        <span>Ore PCTO</span>
+      </div>
+      <div class="concl-stat">
+        <strong>6</strong>
+        <span>Attività formali</span>
+      </div>
+      <div class="concl-stat">
+        <strong>4</strong>
+        <span>Progetti extracurr.</span>
+      </div>
+      <div class="concl-stat">
+        <strong>3</strong>
+        <span>Anni di percorso</span>
+      </div>
+      <div class="concl-stat">
+        <strong>x -> +∞</strong>
+        <span>nostalgia</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="concl-text">
+    <p>Il bilancio complessivo delle attività svolte nel corso del triennio è ampiamente positivo. I percorsi per le competenze trasversali mi hanno permesso di abbattere le pareti dell'aula scolastica, ponendomi a stretto contatto con metodologie di lavoro aziendali e contesti culturali di respiro europeo.</p>
+
+    <div class="quote-block">
+      <p>L'aspetto più stimolante è stata la multidisciplinarietà del mio percorso: questa contaminazione di saperi — tecnologici e umanistici — è l'elemento che ritengo più prezioso per il mio futuro.</p>
+    </div>
+
+    <p>Le competenze logico-computazionali e analitiche acquisite con i corsi Boolean (HTML, JavaScript, Python, Tableau) integrano e completano perfettamente le abilità critiche, ermeneutiche e di espressione verbale maturate nei Festival della Filosofia in Italia e all'estero.</p>
+
+    <p>Le attività extracurriculari, guidate dall'esperienza cinematografica di "CinemAmaldi" e dalla diplomazia del MEP, hanno ulteriormente arricchito la mia capacità di gestione progettuale e di espressione creativa, fornendo strumenti concreti per affrontare sfide complesse e multidimensionali.</p>
+
+    <p>In conclusione, il percorso PCTO e i progetti integrativi hanno contribuito in modo determinante a trasformare le mie conoscenze teoriche in competenze agite, orientando con maggiore consapevolezza e maturità le mie scelte per il futuro percorso universitario e professionale.</p>
+
+    <div style="margin-top: 40px; padding: 24px 28px; background: var(--ink); border-radius: 4px; display: inline-block;">
+      <p style="font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px;">Firma</p>
+      <p style="font-family: 'Playfair Display', serif; font-size: 22px; color: var(--cream); margin: 0; font-style: italic;">Francesco Simeone</p>
+      <p style="font-size: 12px; color: rgba(245,240,232,0.45); margin: 4px 0 0; letter-spacing: 0.1em;">Liceo Scientifico "E. Amaldi" x sempre </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p><strong>Francesco Simeone · 5^CSA</strong> &nbsp;|&nbsp; Liceo Scientifico Statale "E. Amaldi" — Bitetto (BA)</p>
+  <p style="margin-top: 8px; font-size: 11px; opacity: 0.6;">Relazione Finale PCTO · Triennio 2023/2024 – 2025/2026 &nbsp;·&nbsp; 98 ore validate</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('[data-anim]').forEach((el, i) => {
+    el.dataset.delay = (i % 3) * 80;
+    observer.observe(el);
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + entry.target.id
+            ? 'var(--gold)' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(s => navObserver.observe(s));
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const bg = document.getElementById('hero-bg');
+    if (bg && y < window.innerHeight) {
+      bg.style.transform = `translateY(${y * 0.3}px)`;
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
